@@ -23,3 +23,5 @@ fact card, add typed links to the source docs, add a timeline entry, then verify
 - Source docs in evo_00 stay the SSOT; fact cards just lock the canonical values for recall.
 - KYC RULE: NEVER read/feed/commit `migration_bridge/Migrated Existing HLTs/` (investor ID docs). It is gitignored.
 - Write through MCP (`tools/call`), not the `gbrain` CLI (PGLite single-writer; serve holds the lock).
+
+- FEED-BACK: whenever you query gbrain and a canonical fact is new or changed, write it back (put_page/add_link/add_timeline_entry) in the same session.
