@@ -14,3 +14,12 @@ You are pointed at the **Operator & Governance Control Plane** for Evolution Sta
    - Counsel sends, live money deployment (`PURCHASES_ENABLED`), and irreversible roster decisions require explicit founder approval.
 4. **Done Means Walked:**
    - Verification requires real runtime execution (headless browser walkthroughs or live API calls). Unit tests alone are insufficient.
+
+
+## gbrain knowledge hub — feed on milestones
+Evolution Stables has a canonical knowledge hub in gbrain (MCP at localhost:3456, token in your MCP config).
+Use the `gbrain-hub` skill. On a LOCKED fact, a DECISION, or a completed MIGRATION MILESTONE, write/update a
+fact card, add typed links to the source docs, add a timeline entry, then verify with a query.
+- Source docs in evo_00 stay the SSOT; fact cards just lock the canonical values for recall.
+- KYC RULE: NEVER read/feed/commit `migration_bridge/Migrated Existing HLTs/` (investor ID docs). It is gitignored.
+- Write through MCP (`tools/call`), not the `gbrain` CLI (PGLite single-writer; serve holds the lock).
