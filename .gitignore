@@ -1,0 +1,23 @@
+# --- SENSITIVE: real investor KYC/ID documents + photos — NEVER commit/push ---
+migration_bridge/Migrated Existing HLTs/
+
+# Windows ADS junk left by SMB copies
+*:Zone.Identifier*
+
+# OS / editor junk
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
+
+# secrets & env
+.env
+.env.*
+*.pem
+*.key
+credentials*
+
+# logs / temp
+*.log
+*.tmp
