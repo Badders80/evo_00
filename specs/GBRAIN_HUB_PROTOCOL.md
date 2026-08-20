@@ -30,3 +30,23 @@ op names, param shapes, the YAML-colon gotcha, and verification steps. In short:
 ## Verification gate
 Every feed must end with a real `query` that returns the changed fact card, and `get_health`
 holding `brain_score >= ~75`. No "done" without that evidence.
+
+## Auto-sync from git (wired 2026-08-20)
+
+The control plane is now a git repo with a registered gbrain source. This makes the repo the feed:
+milestone commits to `evo_00` docs are the canonical fact changes.
+
+
+- Source: `evo00` → `/home/evo/new/evo_00` (git-source, federated into default search).
+
+- After a milestone commit, refresh the brain (CLI needs the DB, so a brief stop is required):
+
+  `systemctl --user stop gbrain-mcp.service`
+
+  `gbrain sync --source evo00 && gbrain embed --stale`
+
+  `systemctl --user start gbrain-mcp.service`
+
+- Do NOT commit `migration_bridge/Migrated Existing HLTs/` — it holds real investor KYC/ID
+
+  documents; it is gitignored and must stay out of git and the brain.
