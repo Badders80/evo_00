@@ -50,3 +50,7 @@ milestone commits to `evo_00` docs are the canonical fact changes.
 - Do NOT commit `migration_bridge/Migrated Existing HLTs/` — it holds real investor KYC/ID
 
   documents; it is gitignored and must stay out of git and the brain.
+
+- **Automated (systemd timer `gbrain-sync.timer`, every 10 min):** new commits to evo_00
+  are auto-synced into the brain — no manual step. It only stops serve when HEAD has
+  changed, then syncs + embeds + restarts. `systemctl --user list-timers gbrain-sync`.
