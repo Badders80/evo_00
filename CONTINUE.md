@@ -1,7 +1,9 @@
 # CONTINUE — evo_00 Control Plane
 
 **Status:** Active Control Plane  
-**Active Milestone:** Milestone 2 — Web Storefront & Marketplace Clean-Room Rebuild (`apps/web`)
+**Active Milestone:** Nellie end-to-end (auth → KYC → Stripe → MyStable). Other horses visible, not buyable.  
+**Live lock:** `doc/ASSET_LOCK.md` (2026-08-21). GitHub remotes `Badders80/evo_00|02|03` are the rollback surface.  
+**Handoff:** `evo_02/CONTINUE.md`
 
 ---
 
@@ -40,7 +42,7 @@
 - [x] **`@evo/storage` Package:** Cloudflare R2 zero-egress client, presigned private vault download/upload helpers, public CDN media resolvers (`https://cdn.evolutionstables.nz`), and isomorphic zero-dependency SHA-256 digest engine (passing NIST test vectors).
 - [x] **`@evo/legal_engine` Package:** DSL compiler (Term Sheet, PDS, and SA generator with SHA-256 digests and compliance validation), canonical settlement math (75/25 prize pool, Case B pro-rata + unused float, Case D 4→3 delinquency rule, Case E 4-month burn, NZ GST 3/23 breakdown).
 - [x] **`@evo/db_models` Package:** Supabase client factories, PostgreSQL schemas (`00001_initial_schema.sql` and `00002_cap_table_and_reservations.sql`), strict RLS policies, 15-minute checkout TTL table `checkout_reservations`, atomic row-locking concurrency RPCs (`reserve_campaign_shares`, `release_expired_reservations`), and full TypeScript database models (`types/database.types.ts`).
-- [x] **`apps/mission_control` Cockpit Desk:** 3-column Operator Console, Smart Intake parser with NZTR stud book scraper/lookup, KYC audit inspector, 4-way cap table reconciler, and interactive Settlement Desk calculator (clean Next.js 15 production build). *(Note: Demo data plane currently backed by typed immutable fixtures until wired to live Supabase client).*
+- [x] **`apps/mission_control` Cockpit Desk:** 3-column Operator Console, Smart Intake parser with NZTR stud book scraper/lookup, KYC audit inspector, 3-way listed pool reconciler, and interactive Settlement Desk calculator (clean Next.js 15 production build). *(Note: Demo data plane currently backed by typed immutable fixtures until wired to live Supabase client).*
 
 ---
 
@@ -65,8 +67,8 @@
 | :--- | :--- | :--- |
 | **Domain** | Commercial, Legal, Regulatory Truth | Emotional Resonance, Athletic Potential |
 | **Code Ownership** | Sourced **exclusively** from `@evo/legal_engine` and `@evo/db_models`. | Sourced from `@evo/brand_dna`, `@evo/storage/cdn`, and editorial traits. |
-| **Pricing Rule** | **Never hardcoded.** Derived dynamically per horse ($76/mo for Nellie, $65/mo for Mulan). | **Never drives pricing or share counts.** |
-| **Key Surfaces** | Monospace pricing card, 4-Way Cap Table balancer, Frozen PDS/SA SHA-256 PDF links, KYC status. | Conformation gallery, trainer profile, pedigree bloodlines, **Thoroughbred Attributes**. |
+| **Pricing Rule** | **Never hardcoded.** Derived dynamically per horse (e.g. `$76/mo` for Nellie). | **Never drives pricing or share counts.** |
+| **Key Surfaces** | Monospace pricing card, 3-Way Listed Pool balancer, Frozen PDS/SA SHA-256 PDF links, KYC status. | Conformation gallery, trainer profile, pedigree bloodlines, **Thoroughbred Attributes**. |
 
 ### C. Thoroughbred Attributes Schema ("Pokemon Powers" Internal Metaphor)
 * **Rule:** The phrase *"Pokemon Powers"* is strictly an internal engineering nickname. **It must NEVER appear in customer-facing UI or copy.**
@@ -77,10 +79,18 @@
   3. `conformation_build`: string (e.g. *"Deep Girth, Balanced Overstep"*)
   4. `maturity_timeline`: string (e.g. *"Early Pre-Christmas 2YO Target"*)
 
-### D. Canonical 4-Way Cap Table Formula
-On all surfaces, horse share allocations strictly obey the 4-way integer identity:
-$$\text{Total (100\%)} = \text{Retained (e.g. 95\%)} + \text{Allocated (e.g. 2\%)} + \text{Reserved (15-min lock, e.g. 1\%)} + \text{Available (e.g. 2\%)}$$
-Where $\text{Campaign Shares} = 100 - \text{Retained Shares} = \text{Allocated} + \text{Reserved} + \text{Available}$.
+### D. Canonical 3-Way Listed Pool Formula
+On all surfaces, horse share allocations strictly obey the 3-way listed-pool identity:
+$$\text{total_shares} = \text{allocated} + \text{reserved} + \text{available}$$
+Where `total_shares` is the number of purchasable step units (`listed_stake_pct / stake_step_pct`), and the lead owner retains the remaining percentage implicitly outside the build.
+
+Example step-unit math:
+- 5% listed stake, 0.5% increment → `total_shares = 5 / 0.5 = 10` units.
+- 5% listed stake, 1.0% increment → `total_shares = 5 / 1.0 = 5` units.
+- 10% listed stake, 0.25% increment → `total_shares = 10 / 0.25 = 40` units.
+- 10% listed stake, 1.0% increment → `total_shares = 10 / 1.0 = 10` units.
+
+Reservation RPC enforces that `units` is a positive integer-equivalent number of step units.
 
 ### E. Standardized Route Structure
 * Standard Route: **`/horses/[slug]`** (e.g. `/horses/nellie`, `/horses/tml-x-yearn`).
