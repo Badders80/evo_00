@@ -34,6 +34,15 @@
 
 ---
 
+## ADR-005: Live Asset Lock vs Market Research
+* **Status:** APPROVED & LOCKED
+* **Date:** 2026-08-21
+* **Context:** A morning market-research pass and an Antigravity MC restyle leaked Te Akau, Allan Sharrock, fabricated pedigrees, and “Alex Bax” / “Stephen Gray Stables” into the live registry.
+* **Decision:** `doc/ASSET_LOCK.md` is the human SSOT; `@evo/db_models` `asset-lock.ts` is the code SSOT. Live trainers are Barbara Kennedy, Wexford, and **Stephen Gray Racing** at Copper Belt Lodge, 160 Green Road, RD6, Palmerston North 4476. Owners: B.A.X Bloodstock (Nellie, Prudentia, Hotta, Manolo); Stephen Gray Racing (Mulan, First Gear). Public name is **Evolution Stables**; “Limited” only on formal legal packs. First Gear stays **visible** on the website as completed track record with checkout blocked.
+* **Consequences:** Research folders must not seed trainers, owners, or pedigrees. Any “Stables” form of Stephen Gray / Grey is banned.
+
+---
+
 ## ADR-004: DSL Commercial & Syndicate Constitution (The DSL Manual)
 * **Status:** APPROVED & LOCKED
 * **Date:** 2026-08-17
