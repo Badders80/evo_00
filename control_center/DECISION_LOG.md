@@ -72,3 +72,12 @@
 * **Context:** Having markdown control centers, roadmaps, or continue files inside both `evo_00` and `evo_02` creates dual-brain drift where agents follow conflicting task states.
 * **Decision:** `evo_00` is the **sole desk and governance workspace** for all ADRs, planning, and task tracking (`AGENTS.md` + `CONTINUE.md`). `evo_02` is strictly a pure application monorepo (`/packages/` and `/apps/`) containing zero competing markdown control desks.
 * **Consequences:** Unified agent state, zero desk duplication, single point of truth.
+
+---
+
+## ADR-007: Locked Identity Triad & Control-Plane Identity SSOT
+* **Status:** APPROVED & LOCKED
+* **Date:** 2026-08-25
+* **Context:** Founder locked the brand identity triad as **"Grounded in Heritage / Evolved Through Tradition / Own the Experience"** during TikTok narrative-bible work. The earlier "Evolution Triad" cadence (*Grounded in tradition / Evolved through innovation / Ownership transformed* — `VOICE_AND_TONE_MANUAL.md` §3.3, `voice.ts` `taglines.triad`) predates this lock and conflicts on two of three pillars. The narrative bible had also become the accidental home of identity, buried in the retiring `evo_01` content-pipeline tree, which cannot hold canonical content going forward.
+* **Decision:** Create `doc/IDENTITY.md` as the LOCKED identity SSOT (triad, core promise, category line, four non-negotiable rules including *price never appears in the story*). Mirror constants into `@evo/brand_dna/src/identity.ts`. Retire the old triad wording everywhere: strike §3.3 of the Voice Manual (superseded note) and remove `taglines.triad` from `voice.ts` (verified zero downstream consumers). Surface narratives (TikTok bible, campaigns, channel docs) **derive** from the identity SSOT and never define identity locally. Per retirement policy, only locked-in content migrates off `evo_01`; its `_shared/dna/` atoms are pre-retirement mirrors, not canonical.
+* **Consequences:** One identity root feeds every surface; old-triad copy must not appear in any new build output; bible §0 becomes a derivation reference; future narratives (YouTube, events, marketplace copy) start from `doc/IDENTITY.md`.

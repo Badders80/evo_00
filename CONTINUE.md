@@ -25,7 +25,10 @@
   - Silent Gavel laws (lead with thoroughbred, zero justification, no negation openers).
   - Digital-Syndication nomenclature + NZTR / FMA Equine Exemption positioning.
   - Master vocabulary whitelist and banned-terms dictionary with strict CI copy validation.
-  - Locked taglines (*"Ownership, evolved."*, *"Ownership, reimagined."*, *"Own the Experience."*, and the *Grounded in tradition* triad).
+  - Locked taglines (*"Ownership, evolved."*, *"Ownership, reimagined."*, *"Own the Experience."*).
+- [x] **`doc/IDENTITY.md` LOCKED (2026-08-25):**
+  - Identity Triad: **Grounded in Heritage / Evolved Through Tradition / Own the Experience** (+ full cadence).
+  - Core promise, category line, four non-negotiable rules (price never in story). Supersedes the old *Grounded in tradition* triad everywhere — see ADR-007. Code mirror: `@evo/brand_dna/identity`.
 - [x] **`specs/INFRASTRUCTURE_SPEC.md` LOCKED (2026-08-17):**
   - Cloudflare R2 (`cdn.evolutionstables.nz`) $0 egress media vault.
   - Supabase `Evolution-3.0`: Pure Supabase Auth, PostgreSQL with RLS, contract storage vault.

@@ -81,10 +81,12 @@ Inspired by heritage luxury houses (*e.g. Saddlery by Hermès, High Jewelry by T
 - **Typography & Styling:** 10–11px uppercase, wide letter-spacing (`tracking-[0.25em]`), muted secondary color (`--muted-foreground` / `hsl(0 0% 60%)`).
 - **Strategic Purpose:** Positions Evolution Stables not as a software app, but as the **authoritative institutional house** of modern thoroughbred syndication.
 
-### 3.3 Brand Cadence (The Evolution Triad)
-- *Grounded in tradition.*
-- *Evolved through innovation.*
-- *Ownership transformed.*
+### 3.3 Brand Cadence — SUPERSEDED (2026-08-25, ADR-007)
+The former "Evolution Triad" (*Grounded in tradition. Evolved through innovation. Ownership transformed.*) is retired. The locked identity cadence lives in `doc/IDENTITY.md` §1:
+
+> *Grounded in Heritage. Evolved Through Tradition. Evolution Stables. Own the Experience.*
+
+Use that cadence everywhere this section previously applied.
 
 ### 3.4 Closers & Bridge Lines (Used Sparingly — Max One Per Surface)
 - *"From paddocks to participation — this is ownership, evolved."*
