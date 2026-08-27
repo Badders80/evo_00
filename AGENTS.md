@@ -18,6 +18,8 @@ You are pointed at the **Operator & Governance Control Plane** for Evolution Sta
    - Multi-file builds, sprints, and any work that needs plan → execute → audit use [`harness/skills/build-loop/SKILL.md`](harness/skills/build-loop/SKILL.md) (v1.1.0).
    - No execution before founder `APPROVED:` on `review-synthesis.md`. No auto-stash. No guest checkout / `PURCHASES_ENABLED` / Tokinvest copy on live surfaces inside the loop.
    - One-line fixes may skip the loop; audits alone use `kimi-code-audit`.
+6. **Git discipline:**
+   - Git operations must use `git -C <path>` or verify cwd after cd — never chain onto a fallback directory.
 
 ## gbrain knowledge hub — feed on milestones
 Evolution Stables has a canonical knowledge hub in gbrain (MCP at localhost:3456, token in your MCP config).
