@@ -133,3 +133,23 @@ Reservation RPC enforces that `units` is a positive integer-equivalent number of
 - `evo_01`: `/home/evo/new/evo_01` (Read-Only Historical Reference)
 - `evo_02`: `/home/evo/new/evo_02` (Target Production App Monorepo)
 - `evo_03`: `/home/evo/new/evo_03` (Target Studio & Creative Sandbox)
+
+> ⚠️ **Name-collision warning (2026-08-26):** `/home/evo/evo_01/` (home dir) is **NOT** the island.
+> It holds only racing-content pipeline scratch space and is the live `WorkingDirectory` of six
+> systemd services (`racing-content-pipeline`, `racing-tips-daily`, `-ensure`, `-trust-daily`,
+> `-mon-rerun`, `qwen-watcher`). Do NOT delete it until those units are repointed + one clean run
+> confirmed. The real island is `/home/evo/new/evo_01` — time capsule, hands-off until cutover.
+
+---
+
+## 6. Session Wrap — 2026-08-26 evening
+
+**Done today (verified):**
+1. **Track A UI sprint** (`evo_02` @ `22338b4`+`b8c7ac2`, branch `ui-sprint-1`, NOT merged): @theme tokens wired, just check 10/10, favicon + gold header lockup. Founder click-through checklist in `evo_02/CONTINUE.md` → `pnpm --filter @evo/web dev -p 3010`.
+2. **gbrain repairs**: sync script fail-loud fix (no more silent `|| true`), evo00 fresh @ b8d723d / 0 failures, 15 wedged jobs drained, hub index completed (12 cards), 17 duplicate pages soft-deleted (recoverable until ~2026-08-29), health_score 65→95.
+
+**Open items for next session (priority order):**
+1. ⛔ **Founder decisions pending:** (a) say "go" → apply blocked `/home/evo/CLAUDE.md` rewrite (stale build-surface pointer misdirected 2 agents today); (b) approve racing-pipeline `WorkingDirectory` migration before ever deleting `/home/evo/evo_01/`.
+2. **Commit dirty evo_00 files:** `AGENTS.md` (git-discipline law itself uncommitted), `doc/DSL_MANUAL.md`; delete-or-commit stray `AGENTS.md.bak-gbrain`.
+3. **Click-through → merge → Vercel cutover** (founder-gated; nothing touched live until then).
+4. gbrain cosmetics (non-blocking): link hub from `entity/evolution-stables` (hub currently lone orphan); gbrain self-upgrade 0.46.23→0.46.29; subagent model Groq llama-3.3 lacks prompt caching.

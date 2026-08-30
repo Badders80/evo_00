@@ -19,15 +19,23 @@ $$\\text{M} = \\text{list} \\times \\text{stake}\% \\quad (\\text{round UP to wh
 
 ---
 
-## 2. Syndicate Billing & Subscription Float Model
+## 2. Syndicate Billing Models
 
-* **The $5\\times M$ Join Float:**
-  * At initial checkout, an investor pays **$5\\times M$**.
-  * **Breakdown:** 3 months security deposit reserve + 2 months prepaid keep.
-* **The Monthly $M$ Keep Subscription:**
-  * Commencing on Month 2, the investor pays **$M$ monthly** to maintain the constant 5-month float buffer.
-* **Contract Exit & Unused Fund Refunds:**
-  * Upon formal termination or maturity of the syndicate lease, all unused prepaid keep and security deposit reserve funds are **refunded pro-rata** to the investor’s verified payment method within 14 business days.
+Every DSL declares a `payment_style`:
+
+| Payment Style | Mechanism | When Applied |
+| :--- | :--- | :--- |
+| `subscription_float` | **$5\\times M$ join float** (3 months deposit reserve + 2 months prepaid keep), then **$M$ monthly** to maintain a constant 5-month float buffer. | Default for live standard DSLs (e.g. Nellie, Mulan). |
+| `upfront` | **Single lump-sum payment** for the full lease term. No recurring keep, no float billing, no Stripe subscription. | Historical Tokinvest listings (Prudentia, Hottathanafantasy, completed First Gear) and new fully-paid listings (Manolo). |
+
+### 2.1 Subscription Float Exit & Unused Fund Refunds
+Upon formal termination or maturity of a `subscription_float` syndicate lease, all unused prepaid keep and security deposit reserve funds are **refunded pro-rata** to the investor’s verified payment method within 14 business days.
+
+### 2.2 Upfront Model
+* No monthly subscription.
+* No $5\\times M$ float deposit.
+* Prize money distributions still follow the standard 75/25 investor/owner split pro-rata to stake held.
+* Exit mechanics are governed by the DSL `close_style` but no recurring billing is paused or refunded.
 
 ---
 
@@ -84,3 +92,35 @@ $$\\text{Investor Distribution Pool} = \\text{Officially Published Gross Stakes}
 
 ### 5.3 Tokinvest & Crypto Purge
 * Tokinvest, crypto tokens, digital asset exchanges, and Dubai VARA regulations are **completely purged with zero trace** across all new templates, databases, and investor communications.
+
+---
+
+## 6. Campaign Sizing & Listed Pool Mechanics
+
+### 6.1 Listed Pool Identity
+A DSL only models the **listed stake pool**. The lead owner retains the remainder implicitly and it is not stored or displayed in the build.
+
+$$\\text{total\\_shares} = \\text{allocated} + \\text{reserved} + \\text{available}$$
+
+### 6.2 Step-Unit Math
+`total_shares` is the number of purchasable **step units**, not percentage points:
+
+$$\\text{total\\_shares} = \\frac{\\text{listed\\_stake\\_pct}}{\\text{stake\\_step\\_pct}}$$
+
+Examples:
+* 5% listed stake, 0.5% increment → `total_shares = 10` units.
+* 5% listed stake, 1.0% increment → `total_shares = 5` units.
+* 10% listed stake, 0.25% increment → `total_shares = 40` units.
+* 10% listed stake, 1.0% increment → `total_shares = 10` units.
+
+Each unit represents exactly one minimum purchasable step. The reservation RPC enforces that `units` is a positive integer-equivalent number of step units.
+
+### 6.3 Campaign Status Semantics
+| Status | Meaning |
+| :--- | :--- |
+| `draft` | Internal preparation. |
+| `coming_soon` | Public teaser, no checkout (Manolo). |
+| `coming_soon_details` | Full details visible, reservations allowed for an opening launch. |
+| `listed` | Live and open for checkout. |
+| `fully_subscribed` | All listed units allocated (Prudentia, Hottathanafantasy). |
+| `completed` | Historical track-record entry; checkout blocked (First Gear). |
